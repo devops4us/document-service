@@ -1,0 +1,11 @@
+version: "3"
+services:
+   document-service:
+      container_name: document-service
+      networks:
+      - default    
+      hostname: document-service
+      ports:
+      - "9081:9080" 
+      build: .
+      image: us.icr.io/amsit/document-service:latest   

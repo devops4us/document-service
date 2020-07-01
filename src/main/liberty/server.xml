@@ -1,0 +1,19 @@
+<server description="CSV Conversion Server">
+
+  <featureManager>
+    <feature>jaxrs-2.1</feature>
+    <feature>jsonp-1.1</feature>
+    <feature>cdi-2.0</feature>
+    <feature>mpRestClient-1.3</feature>
+    <feature>mpConfig-1.3</feature>
+  </featureManager>
+
+  <httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" />
+  <webApplication location="document-service-0.1-SNAPSHOT.war" contextRoot="/" />    
+  
+     <logging consoleFormat="json" consoleSource="message, trace" consoleLogLevel="INFO"
+	messageSource="message,trace,accessLog,ffdc,audit"
+	traceSpecification="*=INFO:org.apache.cfx.*=ALL:com.ibm.documents.*=ALL" traceFileName="trace.log" /> 
+    
+    
+</server>

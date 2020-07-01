@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: docservice-build-taskrun
+spec:
+  serviceAccountName: pipeline-run-sa
+  taskRef:
+    name: build-document-service
+  resources:
+    inputs:
+      - name: source
+        resourceRef:
+          name: documents-git
+    outputs:
+      - name: builtImage
+        resourceRef:
+          name: docservice-image
