@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: build-document-service
-spec:
+spec:  
   resources:
     inputs:
       - name: source
@@ -10,7 +10,22 @@ spec:
     outputs:
       - name: builtImage
         type: image
+        
   steps:
+    - name: package
+      image: maven:3.6.3-ibmjava-8       
+      script: |
+         #!/usr/bin/env bash
+         set -xe
+         mvn --version 
+         java -version
+         echo '-----------------------------------------------------'
+         mvn package -f ./source/pom.xml -Ddockerfile.skip
+         echo '-----------------------------------------------------'         
+      volumeMounts:
+         - name: shared-storage
+           mountPath: /workspace/source/target
+    
     - name: build-and-push
       image: gcr.io/kaniko-project/executor
       command: 
@@ -20,3 +35,10 @@ spec:
         - "--dockerfile=./source/Dockerfile" 
         - "--destination=$(resources.outputs.builtImage.url)" 
         - "--context=$(resources.inputs.source.path)"
+      volumeMounts:
+         - name: shared-storage
+           mountPath: /workspace/source/target
+           
+  volumes:
+   - name: shared-storage
+     emptyDir: {} 
