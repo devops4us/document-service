@@ -6,9 +6,7 @@ spec:
   serviceAccountName: pipeline-run-sa
   taskRef:
     name: task-deploy-docservice
-  params:
-      - name: deployment-name
-        value: "deployment/deployment-docservice"
+  params: 
       - name: deployment-namespace
         value: "env-dev"  
   resources:
