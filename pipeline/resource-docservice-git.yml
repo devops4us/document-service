@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: documents-git
+  name: docservice-git
 spec:
   type: git
   params:

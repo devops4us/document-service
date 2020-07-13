@@ -1,14 +1,14 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: build-document-service
+  name: task-build-docservice
 spec:  
   resources:
     inputs:
       - name: source
         type: git
     outputs:
-      - name: builtImage
+      - name: image
         type: image
         
   steps:
@@ -33,7 +33,7 @@ spec:
       args:
         - "--verbosity=debug"
         - "--dockerfile=./source/Dockerfile" 
-        - "--destination=$(resources.outputs.builtImage.url)" 
+        - "--destination=$(resources.outputs.image.url)" 
         - "--context=$(resources.inputs.source.path)"
       volumeMounts:
          - name: shared-storage

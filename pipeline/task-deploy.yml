@@ -1,13 +1,17 @@
-piVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
-  name: deploy-docservice-app
+  name: task-deploy-docservice
 spec:
   inputs:
     resources:
       - name: source
         type: git
     params:
+      - name: deployment-name
+        type: string
+      - name: deployment-namespace
+        type: string      
   steps: 
     - name: create-deployment
       image: lachlanevenson/k8s-kubectl
@@ -15,11 +19,13 @@ spec:
       args:
         - "apply"
         - "-f"
-        - "$(inputs.resources.source.path)/pipeline/deployment.yaml"
+        - "./pipeline/deployment-docservice.yml"
+        - "-n env-dev"
     - name: deploy-application
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "rollout"
         - "restart"
-        - "deployment/docservice-deployment"
+        - "$(inputs.params.deployment-name)"
+        - "-n $(inputs.params.deployment-namespace)"
