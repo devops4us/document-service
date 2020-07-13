@@ -19,7 +19,7 @@ spec:
       args:
         - "apply"
         - "-f"
-        - "$(inputs.source.path)/pipeline/deployment-docservice.yml"
+        - "$(inputs.resources.source.path)/pipeline/deployment-docservice.yml"
         - "-n env-dev"
     - name: deploy-application
       image: lachlanevenson/k8s-kubectl
