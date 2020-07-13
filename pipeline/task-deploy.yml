@@ -7,11 +7,9 @@ spec:
     inputs:
       - name: source
         type: git
-    params:
-      - name: deployment-name
-        type: string
-      - name: deployment-namespace
-        type: string      
+  params:
+    - name: deployment-namespace
+      type: string      
   steps: 
     - name: create-deployment
       image: lachlanevenson/k8s-kubectl
