@@ -18,7 +18,8 @@ spec:
         - "apply"
         - "-f"
         - "$(resources.inputs.source.path)/pipeline/deployment-docservice.yml"
-        - "-n env-dev"
+        - "-n" 
+        - "$(resources.params.deployment-namespace)"
     - name: deploy-application
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
@@ -26,4 +27,5 @@ spec:
         - "rollout"
         - "restart"
         - "deployment/deployment-docservice"
-        - "-n $(resources.params.deployment-namespace)"
+        - "-n"
+        - "$(resources.params.deployment-namespace)"
