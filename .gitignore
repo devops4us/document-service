@@ -1,2 +1,6 @@
 /target/
 /**/secret*.*
+.settings
+.project
+.classpath
+/temp/
